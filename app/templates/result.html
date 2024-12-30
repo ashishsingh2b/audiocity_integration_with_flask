@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Segments</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .results-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .segment {
+            background-color: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .segment-name {
+            flex-grow: 1;
+            margin-right: 15px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .download-link {
+            text-decoration: none;
+            background-color: #4CAF50;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 3px;
+            transition: background-color 0.3s;
+        }
+        .download-link:hover {
+            background-color: #45a049;
+        }
+        .back-link {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            text-decoration: none;
+            color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+    <div class="results-container">
+        <h1>Audio Segments</h1>
+        
+        {% if output_files %}
+            <h2>Generated Segments: {{ output_files|length }}</h2>
+            
+            {% for file in output_files %}
+                <div class="segment">
+                    <div class="segment-name">{{ file }}</div>
+                    <audio controls>
+                        <source src="{{ url_for('serve_segment', filename=file) }}" type="audio/wav">
+                        Your browser does not support the audio element.
+                    </audio>
+                    <a href="{{ url_for('serve_segment', filename=file) }}" 
+                       class="download-link" 
+                       download>Download</a>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No audio segments were generated.</p>
+        {% endif %}
+        
+        <a href="{{ url_for('upload_file') }}" class="back-link">Process Another File</a>
+    </div>
+
+    <script>
+        // Optional: Add client-side interaction
+        document.querySelectorAll('audio').forEach(audio => {
+            audio.addEventListener('play', function() {
+                // Pause other audio elements when one starts playing
+                document.querySelectorAll('audio').forEach(a => {
+                    if (a !== audio) a.pause();
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!-- app/templates/error.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        .error-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .error-code {
+            font-size: 72px;
+            color: #ff6b6b;
+            margin-bottom: 20px;
+        }
+        .error-message {
+            font-size: 18px;
+            color: #333;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #4CAF50;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <div class="error-code">{{ code or '404' }}</div>
+        <div class="error-message">
+            {{ error or 'Page Not Found' }}
+        </div>
+        <a href="{{ url_for('upload_file') }}" class="back-link">Back to Upload</a>
+    </div>
+</body>
+</html>
