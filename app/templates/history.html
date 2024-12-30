@@ -1,0 +1,36 @@
+<!-- app/templates/history.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Processing History</title>
+    <style>
+        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
+        .nav { margin-bottom: 20px; }
+        .history-item { border: 1px solid #ddd; padding: 10px; margin: 10px 0; }
+        .timestamp { color: #666; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <a href="/">Home</a> |
+            <a href="/history">Processing History</a>
+        </div>
+        
+        <h1>Processing History</h1>
+        
+        {% if history %}
+            {% for entry in history %}
+                <div class="history-item">
+                    <h3>{{ entry.original_file }}</h3>
+                    <p class="timestamp">Processed: {{ entry.timestamp }}</p>
+                    <p>Status: {{ entry.status }}</p>
+                    <p>Output Directory: {{ entry.output_dir }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No processing history available.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

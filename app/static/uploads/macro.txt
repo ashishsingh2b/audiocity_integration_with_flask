@@ -1,0 +1,8 @@
+
+Import2: Filename="/app/app/static/uploads/FranklinDRooseveltFirstInauguralAddress.mp3" Type="MP3"
+SelectAll:
+SetProject: Rate=22050
+Mono:
+SetEnvelope: Volume=-37
+SilenceLabeler: MinimumDuration="0.35" MinimumInterval="2.0" LabelType="Around" LeadingSilence="0.3" TrailingSilence="0.3"
+ExportMultiple: Directory="/app/app/static/uploads/output" Format=WAV
